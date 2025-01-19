@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LabWork_7</string>
+    <string name="application">Countdown Timer</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="reset">Reset</string>
+</resources>
