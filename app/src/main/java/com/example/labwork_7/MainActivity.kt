@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
-    private var initialDuration: Int = 300 // Исходное время (по умолчанию 5 минут)
+    private var initialDuration: Int = 300
     private var duration: Int = initialDuration
     private lateinit var hour: TextView
     private lateinit var minute: TextView
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var inputMinutes: EditText
     private lateinit var inputSeconds: EditText
     private var countDownTimer: CountDownTimer? = null
-    private var isTimerRunning = false // Флаг для таймера
+    private var isTimerRunning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,34 +37,28 @@ class MainActivity : AppCompatActivity() {
         inputMinutes = findViewById(R.id.inputMinutes)
         inputSeconds = findViewById(R.id.inputSeconds)
 
-        // Инициализация таймера
         updateTimerUI(duration * 1000L)
 
-        // Установить время
         setTimeButton.setOnClickListener {
             val hours = inputHours.text.toString().toIntOrNull() ?: 0
             val minutes = inputMinutes.text.toString().toIntOrNull() ?: 0
             val seconds = inputSeconds.text.toString().toIntOrNull() ?: 0
 
             duration = hours * 3600 + minutes * 60 + seconds
-            initialDuration = duration // Обновляем исходное значение времени
+            initialDuration = duration
 
-            // Остановить текущий таймер, если он запущен
             countDownTimer?.cancel()
             isTimerRunning = false
 
-            // Обновить интерфейс
             updateTimerUI(duration * 1000L)
         }
 
-        // Старт таймера
         startButton.setOnClickListener {
             if (!isTimerRunning) {
                 startTimer()
             }
         }
 
-        // Стоп таймера
         stopButton.setOnClickListener {
             if (isTimerRunning) {
                 countDownTimer?.cancel()
@@ -72,12 +66,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Сброс таймера
         resetButton.setOnClickListener {
-            countDownTimer?.cancel() // Останавливаем текущий таймер
+            countDownTimer?.cancel()
             isTimerRunning = false
-            duration = initialDuration // Восстанавливаем исходное время
-            updateTimerUI(duration * 1000L) // Обновляем интерфейс
+            duration = initialDuration
+            updateTimerUI(duration * 1000L)
         }
     }
 
@@ -85,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         countDownTimer = object : CountDownTimer(duration * 1000L, 1000L) {
             override fun onTick(millisUntilFinished: Long) {
                 updateTimerUI(millisUntilFinished)
-                duration = (millisUntilFinished / 1000).toInt() // Обновляем оставшееся время
+                duration = (millisUntilFinished / 1000).toInt()
             }
 
             override fun onFinish() {
